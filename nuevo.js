@@ -1,6 +1,7 @@
 const form = document.getElementById("frmNuevo");
 
 form.addEventListener("submit", function (event) {
+  window.location.href = "./index.html";
   event.preventDefault();
   let cursoFormData = new FormData(form);
   var jsoncurso = {};
