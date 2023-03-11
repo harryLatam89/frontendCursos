@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>modificar</title>
+    <script>
+      window.addEventListener("load", function () {
+        mostrarCurso();
+        const form = document.getElementById("frmModificar");
+        form.addEventListener("submit", modificarCurso);
+      });
+
+      async function mostrarCurso() {
+        const url = new URL(location.href);
+        const cursoCodigo = url.searchParams.get("codigo");
+
+        const respuesta = await fetch(
+          `http://127.0.0.1:5000/cursos/${cursoCodigo}`
+        );
+        const datos = await respuesta.json();
+
+        codigo = document.getElementById("codigo");
+        codigo.value = datos.curso.codigo;
+
+        creditos = document.getElementById("creditos");
+        creditos.value = datos.curso.creditos;
+        nombre = document.getElementById("nombre");
+        nombre.value = datos.curso.nombre;
+      }
+
+      async function modificarCurso() {
+        const url = new URL(location.href);
+        const cursoCodigo = url.searchParams.get("codigo");
+
+        let cursoFormData = new FormData(
+          document.getElementById("frmModificar")
+        );
+        var jsoncurso = {};
+
+        cursoFormData.forEach(function (value, key) {
+          jsoncurso[key] = value;
+        });
+
+        var jsonfile = JSON.stringify(jsoncurso);
+
+        const repuesta = await fetch(
+          `http://127.0.0.1:5000/cursos/${cursoCodigo}`,
+          {
+            method: "put",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: jsonfile,
+          }
+        );
+
+        //const datos = await respuesta.json();
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Form para modificar</h1>
+    <form id="frmModificar">
+      <div>
+        <label for="codigo">CODIGO:</label>
+        <input
+          type="text"
+          name="codigo"
+          placeholder="Codigo"
+          size="30px"
+          maxlength="100"
+          id="codigo"
+        />
+      </div>
+      <br />
+      <div>
+        <label for="creditos">CREDITOS:</label>
+        <input
+          type="text"
+          name="creditos"
+          placeholder="Creditos"
+          size="22px"
+          maxlength="30"
+          id="creditos"
+        />
+      </div>
+      <br />
+      <div>
+        <label for="nombre">NOMBRE:</label>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          size="22px"
+          maxlength="30"
+          id="nombre"
+        />
+      </div>
+      <br />
+      <!--<input type="button" value="Modificar" id="btnModifcar" /> -->
+      <button type="submit" value="Modificar" id="btnModifcar">
+        Modificar
+      </button>
+      <button type="reset"><a href="index.html">Volver</a></button>
+    </form>
+  </body>
+</html>

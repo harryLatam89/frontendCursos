@@ -27,11 +27,20 @@ async function listCursos() {
     const nTdeliminar = document.createElement("td");
     nTr.appendChild(nTdeliminar);
 
+    const nTmodificar = document.createElement("td");
+    nTr.appendChild(nTmodificar);
+
     const nButEliminar = document.createElement("button");
     nTdeliminar.appendChild(nButEliminar);
     nButEliminar.setAttribute("value", `${datos.cursos[i].codigo}`);
     nButEliminar.appendChild(document.createTextNode("Eliminar"));
     nButEliminar.addEventListener("click", eliminarCurso);
+
+    const nButModificar = document.createElement("button");
+    nTdeliminar.appendChild(nButModificar);
+    nButModificar.setAttribute("value", `${datos.cursos[i].codigo}`);
+    nButModificar.appendChild(document.createTextNode("Modificar"));
+    nButModificar.addEventListener("click", modificarCurso);
   }
 }
 window.addEventListener("load", function () {
@@ -49,4 +58,9 @@ async function eliminarCurso(e) {
   });
   const datos = await resultado.json();
   listCursos();
+}
+
+async function modificarCurso(e) {
+  const cursoCodigo = e.target.value;
+  window.location = `modificar.html?codigo=${cursoCodigo}`;
 }

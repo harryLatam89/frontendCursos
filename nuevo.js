@@ -1,7 +1,6 @@
 const form = document.getElementById("frmNuevo");
 
 form.addEventListener("submit", function (event) {
-  window.location.href = "./index.html";
   event.preventDefault();
   let cursoFormData = new FormData(form);
   var jsoncurso = {};
@@ -9,6 +8,10 @@ form.addEventListener("submit", function (event) {
   cursoFormData.forEach(function (value, key) {
     jsoncurso[key] = value;
   });
+
+  document.getElementById("codigo").value = "";
+  document.getElementById("credito").value = "";
+  document.getElementById("nombre").value = "";
 
   var jsonfile = JSON.stringify(jsoncurso);
   console.log(jsonfile);
