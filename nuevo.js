@@ -9,10 +9,6 @@ form.addEventListener("submit", function (event) {
     jsoncurso[key] = value;
   });
 
-  document.getElementById("codigo").value = "";
-  document.getElementById("credito").value = "";
-  document.getElementById("nombre").value = "";
-
   var jsonfile = JSON.stringify(jsoncurso);
   console.log(jsonfile);
 
